@@ -18,4 +18,4 @@ Abstract: IntelliMeet is a decentralized peer-to-peer video conferencing applica
 4) developing UI for the application
 
 PIPELINE:
-![alt text](https://github.com/niknarra/SE-Project---IntelliMeet/blob/main/use-case-3.png)
+![alt text](https://github.com/niknarra/SE-Project---IntelliMeet/blob/main/diagrams/pipeline.png)
