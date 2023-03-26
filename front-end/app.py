@@ -1,20 +1,17 @@
 from flask import Flask, url_for, redirect, request, render_template, json
-from flask_mail import Mail, Message
 from dotenv import load_dotenv
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.application import MIMEApplication
+
 import os
 
 app = Flask(__name__)
 load_dotenv()
 
 app.config['PASSWORD'] = os.environ.get('PASSWORD')
-#establishing the smtp server
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 143
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'vamsichowdary.dk@gmail.com'
-app.config['MAIL_PASSWORD'] = app.config['PASSWORD']
-app.config['MAIL_DEFAULT_SENDER'] = 'vamsichowdary.dk@gmail.com'
-mail = Mail(app)
+password = app.config['PASSWORD']
 
 participants=[]
 @app.route('/', methods= ['GET', 'POST'])
@@ -39,6 +36,15 @@ def index():
 @app.route('/sendInvites', methods= ['GET', 'POST'])
 def sendkInvites():
     global participants
+    #establishing the smtp server
+    sender_email = 'vamsichowdary.dk@gmail.com'
+    sender_password = password
+    message = MIMEMultipart()
+    message['From'] = sender_email
+    smtp_server = 'smtp.gmail.com'
+    smtp_port = 587
+    smtp_username = sender_email
+    smtp_password = sender_password
 
     #sending email to every paticipant
     for participant in participants:
@@ -50,13 +56,23 @@ def sendkInvites():
         #creating a json file
         with open('form_data.json', 'w') as f:
             json.dump(individual, f)
-        msg = Message('Form Data', recipients=[participant['email']])
-        msg.body = "Please see attached JSON file for form data."
-
-        #attaching the json file
-        with app.open_resource("form_data.json") as fp:
-            msg.attach("form_data.json", "application/json", fp.read())
-        mail.send(msg)
+        #creating email body
+        message['Subject'] = 'Form Data'
+        recipient_email = participant['email']
+        message['To'] = recipient_email
+        body = "Please see attached JSON file for form data."
+        message.attach(MIMEText(body, 'plain'))
+        with open('form_data.json', 'r') as f:
+            attachment = MIMEApplication(f.read(), _subtype='json')
+            attachment.add_header('Content-Disposition', 'attachment', filename='form_data.json')
+            message.attach(attachment)
+        #setting up the server
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()
+        server.login(smtp_username, smtp_password)
+        text = message.as_string()
+        server.sendmail(sender_email, recipient_email, text)
+        server.quit()
 
     participants = []
     return redirect(url_for('index'))
