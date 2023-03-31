@@ -1,7 +1,7 @@
-# SE-Project---IntelliMeet
-Repository for CS 5704 project.
+#IntelliMeet
+Repository for CS 5704 Software Engineering project.
 
-# IntelliMeet: AI-Enabled Decentralized Video Conferencing Application
+#IntelliMeet: AI-Enabled Decentralized Video Conferencing Application.
 
 Abstract: IntelliMeet is a decentralized peer-to-peer video conferencing application that utilizes federation learning techniques to enhance user privacy and machine learning techniques to robustly automate minutes of meeting, detect the use of proxies, and analyze participant attentiveness. The application addresses the problem of meeting attendees multitasking while attending remote or vir- tual meetings, which can negatively affect overall teamwork and collaboration. To address this problem, the proposed application uses machine learning and computer vision techniques to deter- mine if participants are paying attention, thus encouraging more active participation and reducing the likelihood of multitasking. The application also uses speech recognition and natural language processing to automatically generate minutes of meetings and trig- ger email alerts to the meeting participants, reducing the workload of participants and improving productivity. Overall, the proposed application’s features, combined with its architecture, will provide a secure and private video conferencing experience that enhances teamwork and collaboration. With the increasing trend of remote work, the proposed application can play a vital role in helping organizations and individuals achieve their goals of increased pro- ductivity and collaboration.
 
