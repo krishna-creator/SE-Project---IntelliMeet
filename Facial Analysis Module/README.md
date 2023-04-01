@@ -37,7 +37,7 @@ We also provide a set of Face Detector for edge device in [here](https://github.
 - [TensorRT](#tensorrt)
 - [References](#references)
 
-##Facial Analysis
+## Facial Analysis
 1. During Inference Download the pretranied weights using the links provided below
 
 2. Create a virtual environment for facial analysis using ```conda create --name facial_analysis```
