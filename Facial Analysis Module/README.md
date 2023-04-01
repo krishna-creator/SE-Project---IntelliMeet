@@ -30,7 +30,7 @@ We also provide a set of Face Detector for edge device in [here](https://github.
 <p align="center"><img src="curve/FDDB.png" width="640"\></p>
 
 ### Contents
-- [Facial Analysis and Face Pose estimation](#Facial Analysis)
+- [Facial Analysis and Face Pose estimation]
 - [Installation](#installation)
 - [Training](#training)
 - [Evaluation](#evaluation)
