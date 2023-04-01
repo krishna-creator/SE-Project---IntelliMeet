@@ -1,4 +1,4 @@
-# Video and Audio Streaming Services of IntelliMeet !!
+# Video Streaming Services of IntelliMeet !!
 
 ## Implemented P2P Video streaming service using UDP protocol (via peer-peer IP:Port_Address binding)
 - Using Socket IO connections the video frames are transfered between two users in real-time.
