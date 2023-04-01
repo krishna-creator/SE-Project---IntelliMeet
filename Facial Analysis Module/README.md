@@ -1,4 +1,4 @@
-# RetinaFace in PyTorch
+# Implmented RetinaFace in PyTorch
 
 A [PyTorch](https://pytorch.org/) implementation of [RetinaFace: Single-stage Dense Face Localisation in the Wild](https://arxiv.org/abs/1905.00641). Model size only 1.7M, when Retinaface use mobilenet0.25 as backbone net. We also provide resnet50 as backbone net to get better result. The official code in Mxnet can be found [here](https://github.com/deepinsight/insightface/tree/master/RetinaFace).
 
@@ -38,9 +38,9 @@ We also provide a set of Face Detector for edge device in [here](https://github.
 
 ## Installation
 ##### Clone and install
-1. git clone https://github.com/biubug6/Pytorch_Retinaface.git
+1. pip install retinaface
 
-2. Pytorch version 1.1.0+ and torchvision 0.3.0+ are needed.
+2. Pytorch version 1.1.0+ and torchvision 0.3.0+ are needed (GPU version is prefered).
 
 3. Codes are based on Python 3
 
