@@ -6,7 +6,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 
 import os
-
+#creates flask instance
 app = Flask(__name__)
 load_dotenv()
 
@@ -17,6 +17,7 @@ participants=[]
 @app.route('/', methods= ['GET', 'POST'])
 
 def index():
+    #collecting values from the form
     if request.method=='POST':
         name = request.form['name']
         email = request.form['email']
@@ -62,6 +63,7 @@ def sendkInvites():
         message['To'] = recipient_email
         body = "Please see attached JSON file for form data."
         message.attach(MIMEText(body, 'plain'))
+        #attching the json file
         with open('form_data.json', 'r') as f:
             attachment = MIMEApplication(f.read(), _subtype='json')
             attachment.add_header('Content-Disposition', 'attachment', filename='form_data.json')
@@ -71,6 +73,7 @@ def sendkInvites():
         server.starttls()
         server.login(smtp_username, smtp_password)
         text = message.as_string()
+        #sending the mail
         server.sendmail(sender_email, recipient_email, text)
         server.quit()
 
