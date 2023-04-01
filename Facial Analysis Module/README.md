@@ -1,4 +1,4 @@
-# Implmented RetinaFace in PyTorch
+# Implmented Facial Analysis (RetinaFace Backbone) in PyTorch
 
 A [PyTorch](https://pytorch.org/) implementation of [RetinaFace: Single-stage Dense Face Localisation in the Wild](https://arxiv.org/abs/1905.00641). Model size only 1.7M, when Retinaface use mobilenet0.25 as backbone net. We also provide resnet50 as backbone net to get better result. The official code in Mxnet can be found [here](https://github.com/deepinsight/insightface/tree/master/RetinaFace).
 
@@ -30,11 +30,24 @@ We also provide a set of Face Detector for edge device in [here](https://github.
 <p align="center"><img src="curve/FDDB.png" width="640"\></p>
 
 ### Contents
+- [Facial Analysis and Face Pose estimation](#Facial Analysis)
 - [Installation](#installation)
 - [Training](#training)
 - [Evaluation](#evaluation)
 - [TensorRT](#tensorrt)
 - [References](#references)
+
+##Facial Analysis
+1. During Inference Download the pretranied weights using the links provided below
+
+2. Create a virtual environment for facial analysis using ```conda create --name facial_analysis```
+
+3. Install the dependencies
+
+4. Place the weights in ```/models``` directory
+
+5. Run ```python detect.py``` to perform face detection and face pose estimation
+
 
 ## Installation
 ##### Clone and install
