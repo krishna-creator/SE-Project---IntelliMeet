@@ -7,6 +7,9 @@ import pyaudio
 import os
 import wave
 import whisper
+import tkinter
+from PIL import Image, ImageTk
+#from tkinter import *
 
 # Socket Create
 server_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -42,6 +45,11 @@ audio_files_processing = []
 model = whisper.load_model("base", device = "cuda")
 file_save_flag = 0
 transcription_results = []
+
+
+UI_server_video_frames = []
+UI_reciever_video_frames = []
+UI_string = ""
 
 def get_time():
     temp_time = time.localtime()
@@ -108,6 +116,7 @@ def sending_data():
     server_frame_count = 0
     global video_frames_processing
     global sequence_count
+    global UI_server_video_frames
     print("LISTENING AT:",socket_address)
     while True:
     	client_socket,addr = server_socket.accept()
@@ -118,12 +127,14 @@ def sending_data():
     		while(vid.isOpened()):
     			try:
         			img,frame = vid.read()
-        			if server_frame_count%10==0:
+        			frame = cv2.resize(frame, (640, 360), interpolation = cv2.INTER_AREA)
+        			UI_server_video_frames.append(frame)
+        			if server_frame_count%20==0:
         				current_server_time = get_time()
         				video_frames_processing.append({sequence_count: ["server", str(current_server_time), frame]})
         				sequence_count = sequence_count+1  
         			#frame = call_face_detection(frame)
-        			frame = imutils.resize(frame,width=480)
+        			#frame = imutils.resize(frame,width=240)
         			a = pickle.dumps(frame)
         			message = struct.pack("Q",len(a))+a
         			client_socket.sendall(message)
@@ -139,6 +150,7 @@ def sending_data():
 
 
 def recieving_data(): 
+    global UI_reciever_video_frames
     client_frame_count = 0
     global video_frames_processing
     global sequence_count
@@ -163,9 +175,10 @@ def recieving_data():
         	client_frame_data = data[:msg_size]
         	data  = data[msg_size:]
         	client_frame = pickle.loads(client_frame_data)
+        	UI_reciever_video_frames.append(client_frame)
         	#client_frame = call_face_detection(frame)
-        	cv2.imshow("SERVER RECEIVING VIDEO",client_frame)
-        	if client_frame_count%10==0:
+        	#cv2.imshow("SERVER RECEIVING VIDEO",client_frame)
+        	if client_frame_count%20==0:
         		current_clinet_time = get_time()
         		video_frames_processing.append({sequence_count: ["client", str(current_clinet_time), client_frame]})
         		sequence_count = sequence_count+1 
@@ -182,6 +195,7 @@ def recieving_data():
 def json_filecreation(input_file_path, input_text):
     global file_save_flag
     global transcription_results
+    global UI_string
     temp_data = input_file_path.split("temp_dir/")[1]
     input_file = temp_data.split(".wav")[0]
     input_file_type = input_file.split("__")[0]
@@ -194,6 +208,7 @@ def json_filecreation(input_file_path, input_text):
             if file_save_flag ==1:
                 #temp_contents = file.read()
                 #temp_read_data = json.load(file)
+                UI_string = input_text
                 temp_dict[input_file_sequence] = {input_file_type: [[input_file_time], [input_text]] }
                 transcription_results.append(temp_dict)
                 #file.seek(0)
@@ -215,7 +230,7 @@ def whisper_processing():
         if len(audio_files_processing)>0:
             temp_audio_file_path = audio_files_processing.pop(0)
             #print(temp_audio_file_path)
-            result = model.transcribe(temp_audio_file_path, fp16=False, language = 'english')
+            result = model.transcribe(temp_audio_file_path, fp16=True, language = 'english')
             print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             print(result["text"])
             json_filecreation(temp_audio_file_path, result["text"])
@@ -349,10 +364,94 @@ def client_audio_stream():
 			break
 
 	client_socket.close()
-	print('Audio closed')
-	os._exit(1)
+	#print('Audio closed')
+	#os._exit(1)
 
 ###########################################################################################################
+
+def end_meeting():
+    print("!!!!!!  meeting ended  !!!!!!!")
+
+########################################## APP UI ##################################################
+def app_UI():
+    global UI_server_video_frames
+    global UI_reciever_video_frames
+    global UI_string
+    root = tkinter.Tk()
+    root.title("Intellimeet")
+    root.configure(bg='white')
+    root.geometry("1400x530")
+    root.resizable(False,False)
+    title_label = tkinter.Label( root, text="Intellimeet", font=("Arial", 22), fg="maroon", bg='white' )
+    title_label.place(relx = 0.5, rely = 0.0)
+    canvas1 = tkinter.Canvas(root, width=640, height=360, highlightthickness=4, highlightbackground="maroon", bg='white')
+    canvas2 = tkinter.Canvas(root, width=640, height=360, bg='white')
+    canvas3 = tkinter.Canvas(root, width=61, height=290, bg='white', highlightthickness=0, highlightbackground="white")
+
+    canvas1.pack(padx=5, pady=5, side="left")
+    canvas2.pack(padx=5, pady=5, side="left")
+    canvas3.pack(padx=22, pady=5, side="left")
+    
+    server_frame = cv2.imread("error.jpg")
+    reciever_frame = cv2.imread("error.jpg")
+    mic_video_button = cv2.imread("mic_video_buttons.jpg")
+    mic_video_button = cv2.resize(mic_video_button, (40, 192), interpolation = cv2.INTER_AREA)
+    #temp_label = tkinter.Label(root, text = "Audio Transcripts !!")
+    #temp_label.place(relx = 0.0, rely = 0.9, anchor ='sw')
+    audio_label = tkinter.Label(root, text = "Audio Transcripts: ", font=("Arial", 13), bg='white')
+    audio_label.place(relx = 0.0, rely = 0.9, anchor ='sw')
+    my_label = tkinter.Label(root, text = "  ", font=("Arial", 12), bg='white')
+    my_label.place(relx = 0.0, rely = 1.0, anchor ='sw')
+    end_button = tkinter.Button(root, text ="End Meeting", command = end_meeting, bg = "maroon",fg="white",font=("Arial", 13))
+    end_button.place(relx = 1.0, rely = 0.0, anchor ='ne')
+    #my_label.pack()
+    #root.mainloop()
+    #my_label.place(x=100, y=100)
+    
+    #####################################
+    buttons_cv2image = cv2.cvtColor(mic_video_button, cv2.COLOR_BGR2RGBA)
+    buttons_img = Image.fromarray(buttons_cv2image)
+    button_imgtk = ImageTk.PhotoImage(image=buttons_img)
+    canvas3.create_image(0, 0, image=button_imgtk, anchor=tkinter.NW)
+    #####################################
+    
+    while(True):
+        if (len(UI_server_video_frames)>0):
+            #try:
+            server_frame = UI_server_video_frames.pop(0)
+            #except:
+            #    server_frame = cv2.imread("error.jpg")
+                
+        if (len(UI_reciever_video_frames)>0):
+            #try:
+            reciever_frame = UI_reciever_video_frames.pop(0)
+            #except:
+            #    reciever_frame = cv2.imread("error.jpg")
+            
+        server_cv2image = cv2.cvtColor(server_frame, cv2.COLOR_BGR2RGBA)
+        reciever_cv2image = cv2.cvtColor(reciever_frame, cv2.COLOR_BGR2RGBA)
+        
+        server_img = Image.fromarray(server_cv2image)
+        reciever_img = Image.fromarray(reciever_cv2image)
+        
+        imgtk_1 = ImageTk.PhotoImage(image=server_img)
+        imgtk_2 = ImageTk.PhotoImage(image=reciever_img)
+        canvas1.create_image(0, 0, image=imgtk_1, anchor=tkinter.NW)
+        canvas2.create_image(0, 0, image=imgtk_2, anchor=tkinter.NW)
+        
+        try:
+            my_label.config(text = UI_string)
+        except:
+            my_label.config(text = "Audio Transcripts !!")
+
+        
+        #Setting the image on the label
+        #root.config(image=imgtk)
+        
+        root.update()
+########################################## APP UI ##################################################
+
+
 
 x1 = threading.Thread(target = sending_data)
 x2 = threading.Thread(target = recieving_data)
@@ -362,6 +461,9 @@ t1 = threading.Thread(target=server_audio_stream, args=())
 t2 = threading.Thread(target=client_audio_stream, args=())
 t3 = threading.Thread(target=whisper_processing, args=())
 
+
+a1 = threading.Thread(target=app_UI, args=())
+
 x1.start()
 t1.start()
 x3.start()
@@ -369,6 +471,8 @@ t3.start()
 time.sleep(20)
 x2.start()
 t2.start()
+time.sleep(5)
+a1.start()
 
 
 x1.join()
@@ -377,3 +481,4 @@ x3.join()
 t1.join()
 t2.join()
 t3.join()
+a1.join()
