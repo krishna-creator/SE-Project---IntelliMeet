@@ -10,12 +10,17 @@ Abstract: IntelliMeet is a decentralized peer-to-peer video conferencing applica
 2) P2P audio streaming and recieving
 3) Parallel pipelining of audio and video streaming services
 4) developed Bind-9 server for dynamic IP: port allocation.
+5) developed facial analysis module
+6) developed speech-text module
+7) integrated both ML features into the video coneferencing application
+8) developed UI for the application
+9) Built text extraction and analysis module
 
 # Tasks to Do:
-1) develop facial analysis module
-2) develop speech-text module
-3) integrating both ML features into the video coneferencing application
-4) developing UI for the application
+1) Perform Unit testing
+2) Perform Integration testing
+3) Perform validation and system testing
+4) Deploy the aplication by Dockerizing it, and scale it using KubeFlow and kubernetes. 
 
 PIPELINE:
 ![alt text](https://github.com/niknarra/SE-Project---IntelliMeet/blob/main/diagrams/pipeline.png)
