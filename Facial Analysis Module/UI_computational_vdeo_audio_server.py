@@ -9,6 +9,7 @@ import wave
 import whisper
 import tkinter
 from PIL import Image, ImageTk
+from graph_plotting import use_case_1
 #from tkinter import *
 
 # Socket Create
@@ -371,6 +372,8 @@ def client_audio_stream():
 
 def end_meeting():
     print("!!!!!!  meeting ended  !!!!!!!")
+    use_case_1()
+    
 
 ########################################## APP UI ##################################################
 def app_UI():
