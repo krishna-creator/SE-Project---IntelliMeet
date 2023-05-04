@@ -1,6 +1,66 @@
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+.navbar {
+  background: #851f41;
+}
+
+.logo {
+  color: white !important;
+  font-family: "Permanent Marker";
+}
+.section {
+  display: flex;
+  flex-wrap: nowrap;
+  background-color: #ddd;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.section .container,
+.tagline {
+  width: 50%;
+}
+
 .container {
-  margin-top: 5rem;
-  max-width: 40%;
+  margin: 3rem auto;
+}
+
+.tagline {
+  /* display: flex; */
+  text-align: center;
+  font-size: 4em;
+  font-family: "Montserrat";
+}
+
+.tagline p {
+  width: 80%;
+  margin: auto;
+}
+
+form {
+  width: 80%;
+}
+
+.form-control {
+  color: #000 !important;
+}
+
+.name-group {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+}
+
+.form_title {
+  margin: 3rem 0;
+}
+
+.name {
+  width: 50% !important;
+  display: inline !important;
 }
 
 .list {
@@ -11,4 +71,52 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.btn {
+  background-color: #851f41;
+  color: white;
+}
+
+/* For screens smaller than 576px (e.g. mobile phones) */
+@media (max-width: 576px) {
+  html,
+  body {
+    overflow: visible;
+  }
+  .name-group {
+    flex-wrap: wrap;
+  }
+
+  .name {
+    width: 100% !important;
+  }
+
+  .section {
+    flex-direction: column;
+  }
+
+  .tagline {
+    font-size: 2em;
+    display: none;
+  }
+
+  .section .container,
+  .tagline {
+    width: 100%;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  .list {
+    margin-top: 1rem;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="number"] {
+    width: 100%;
+  }
 }

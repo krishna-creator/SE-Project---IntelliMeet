@@ -6,24 +6,26 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 
 import os
-#creates flask instance
+# creates flask instance
 app = Flask(__name__)
 load_dotenv()
 
 app.config['PASSWORD'] = os.environ.get('PASSWORD')
 password = app.config['PASSWORD']
 
-participants=[]
-@app.route('/', methods= ['GET', 'POST'])
+participants = []
 
+
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    #collecting values from the form
-    if request.method=='POST':
-        name = request.form['name']
+    # collecting values from the form
+    if request.method == 'POST':
+        firstName = request.form['firstName']
+        lastName = request.form['lastName']
         email = request.form['email']
         ipaddress = request.form['ipaddress']
         port = request.form['port']
-
+        name = firstName + " " + lastName
         form_data = {
             'name': name,
             'email': email,
@@ -34,10 +36,11 @@ def index():
         return redirect(url_for('index'))
     return render_template("index.html", participants=participants)
 
-@app.route('/sendInvites', methods= ['GET', 'POST'])
+
+@app.route('/sendInvites', methods=['GET', 'POST'])
 def sendkInvites():
     global participants
-    #establishing the smtp server
+    # establishing the smtp server
     sender_email = 'vamsichowdary.dk@gmail.com'
     sender_password = password
     message = MIMEMultipart()
@@ -47,33 +50,34 @@ def sendkInvites():
     smtp_username = sender_email
     smtp_password = sender_password
 
-    #sending email to every paticipant
+    # sending email to every paticipant
     for participant in participants:
-        #formating the json object
-        individual=[{'main' : participant}]
+        # formating the json object
+        individual = [{'main': participant}]
         others = [d for d in participants if d != participant]
-        individual.append({'others' : others})
+        individual.append({'others': others})
 
-        #creating a json file
+        # creating a json file
         with open('form_data.json', 'w') as f:
             json.dump(individual, f)
-        #creating email body
+        # creating email body
         message['Subject'] = 'Form Data'
         recipient_email = participant['email']
         message['To'] = recipient_email
         body = "Please see attached JSON file for form data."
         message.attach(MIMEText(body, 'plain'))
-        #attching the json file
+        # attching the json file
         with open('form_data.json', 'r') as f:
             attachment = MIMEApplication(f.read(), _subtype='json')
-            attachment.add_header('Content-Disposition', 'attachment', filename='form_data.json')
+            attachment.add_header('Content-Disposition',
+                                  'attachment', filename='form_data.json')
             message.attach(attachment)
-        #setting up the server
+        # setting up the server
         server = smtplib.SMTP(smtp_server, smtp_port)
         server.starttls()
         server.login(smtp_username, smtp_password)
         text = message.as_string()
-        #sending the mail
+        # sending the mail
         server.sendmail(sender_email, recipient_email, text)
         server.quit()
 
@@ -81,6 +85,5 @@ def sendkInvites():
     return redirect(url_for('index'))
 
 
-
-if __name__== "__main__":
-    app.run(debug=True)  
+if __name__ == "__main__":
+    app.run(debug=True)
