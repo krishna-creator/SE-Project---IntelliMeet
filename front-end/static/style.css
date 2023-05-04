@@ -2,6 +2,7 @@ html,
 body {
   height: 100%;
   overflow: hidden;
+  box-sizing: border-box;
 }
 .navbar {
   background: #851f41;
@@ -76,6 +77,10 @@ input::-webkit-inner-spin-button {
 .btn {
   background-color: #851f41;
   color: white;
+}
+
+a:hover {
+  color: #fff !important;
 }
 
 /* For screens smaller than 576px (e.g. mobile phones) */
