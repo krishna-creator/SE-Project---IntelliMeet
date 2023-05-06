@@ -153,6 +153,7 @@ pip3 install python-dotenv
 * enter the meeting details (ADD a total of 2 participants only)
 * click on "send invite" button, an email containing "form_data.json" will be mailed to you.
 * place the "form_data.json" in ```SE-Project---IntelliMeet``` repository.
+* Further details regarding the meeting registration page can be found [here] (https://github.com/niknarra/SE-Project---IntelliMeet/tree/main/front-end)
 
 ### Steps to run the application at server-side (i.e computational HUB, note this device should have high computational power.)
 * Clone the repository using ```https://github.com/niknarra/SE-Project---IntelliMeet.git``` (Ignore if already done)
