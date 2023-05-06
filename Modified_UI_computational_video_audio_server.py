@@ -9,10 +9,9 @@ import wave
 import whisper
 import tkinter
 from PIL import Image, ImageTk
-from graph_plotting import use_case_1
+#from graph_plotting import use_case_1
 import sys
 #from tkinter import *
-
 
 
 def load_meeting_meta_data():
@@ -39,14 +38,15 @@ def load_meeting_meta_data():
 
 
 h_ip, h_email, h_port_address, h_name, p_ip, p_email, p_port_address, p_name = load_meeting_meta_data()
+
 # Socket Create
 server_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 reciever_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM) # nature of scoket
 
 
 #host_name  = socket.gethostname()
-host_ip = h_ip #'10.0.0.31'
-port = h_port_address #9999
+host_ip = h_ip
+port = int(h_port_address)
 socket_address = (host_ip,port)
 audio_server_socket_address = (host_ip,(port-20))
 server_socket.bind(socket_address)
@@ -54,8 +54,8 @@ server_socket.listen(1)
 
 
 
-reciever_IP_address = p_ip #'10.0.0.31'
-reciever_port_address = p_port_address #9998
+reciever_IP_address = p_ip
+reciever_port_address = int(p_port_address)
 reciever_socket_address = (reciever_IP_address, reciever_port_address)
 audio_reciever_socket_address = (reciever_IP_address, (reciever_port_address-20))
 
@@ -70,7 +70,7 @@ json_filename = "audio_results.json"
 result_json_lst = []
 #temp_count = 0
 audio_files_processing = []
-model = whisper.load_model("base", device = "cuda") #small
+model = whisper.load_model("small", device = "cuda")
 file_save_flag = 0
 transcription_results = []
 
@@ -398,9 +398,10 @@ def client_audio_stream():
 ###########################################################################################################
 
 def end_meeting():
+    from graph_plotting import use_case_1
     print("!!!!!!  meeting ended  !!!!!!!")
     use_case_1()
-    sys.exit(0)
+    #sys.exit(0)
     
 
 ########################################## APP UI ##################################################
