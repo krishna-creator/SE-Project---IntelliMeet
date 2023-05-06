@@ -53,7 +53,7 @@ The audio streams of all participants are directed to the ML Feature 2 pipeline 
 
 ## DEPENDENCIES INSTALLATION (Python Packages):
 Install the following python libraries that are required to run the application (we are implementing the application in python3)
-```bash
+```shell
 # [important note:] INSTALL PyTORCH library (installation process will be difffrent for every OS and GPU support) by following the documentationof in this link "https://pytorch.org/get-started/locally/"
 
 # install json library
