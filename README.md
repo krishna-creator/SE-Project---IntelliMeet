@@ -35,12 +35,12 @@ The audio streams of all participants are directed to the ML Feature 2 pipeline 
 * greater than Intel i7 9th gen processors for CPU
 
 ## ENVIRONMENT SETUP:
--> Installing ```python language``` in your PC/Laptop, for more details [refer to] (https://www.tutorialspoint.com/how-to-install-python-in-windows)
--> Install ```miniconda terminal``` in your PC/Laptop, for more detils [refer to] (https://docs.conda.io/en/latest/miniconda.html)
--> create a "conda environment" using the following command ```conda create --name intellimeet``` 
--> after creating the environment for intellimeet, activate the environment by executing ```conda activate intellimeet```.
--> install ffmpeg on your device, follow the instruction provided in this [link for windows] (https://www.geeksforgeeks.org/how-to-install-ffmpeg-on-windows/) or [this link for linux] (https://phoenixnap.com/kb/install-ffmpeg-ubuntu).
--> repeat the above steps for all the computers/devices in which you are planning to run IntelliMeet.
+* Installing ```python language``` in your PC/Laptop, for more details [refer to] (https://www.tutorialspoint.com/how-to-install-python-in-windows)
+* Install ```miniconda terminal``` in your PC/Laptop, for more detils [refer to] (https://docs.conda.io/en/latest/miniconda.html)
+* create a "conda environment" using the following command ```conda create --name intellimeet``` 
+* after creating the environment for intellimeet, activate the environment by executing ```conda activate intellimeet```.
+* install ffmpeg on your device, follow the instruction provided in this [link for windows] (https://www.geeksforgeeks.org/how-to-install-ffmpeg-on-windows/) or [this link for linux] (https://phoenixnap.com/kb/install-ffmpeg-ubuntu).
+* repeat the above steps for all the computers/devices in which you are planning to run IntelliMeet.
 
 
 ## DEPENDENCIES INSTALLATION (Python Packages):
@@ -54,19 +54,22 @@ The audio streams of all participants are directed to the ML Feature 2 pipeline 
 
 ## APPLICATION TESTING DETAILS
 ### Unit Testing
+```
 -> For more details on IntelliMeet's Unit Testing refer to the [following directory] [https://github.com/niknarra/SE-Project---IntelliMeet/tree/main/Unit_Tests]
 
 -> The Above directory consists of dependency installation instructions and some sample unit test cases which were done during the testing phase of IntelliMeet.
+```
 ### Black-Box testing
+```
 -> For more details on IntelliMeet's Black-Box Testing refer to the [following directory] [https://github.com/niknarra/SE-Project---IntelliMeet/tree/main/Black_box_Testing]
 
 -> The Above directory consists of dependency installation instructions, black-box test-plan, and a black-box test case related to Use-Case 1.
-
+```
 
 ## FOR INFORMATION ON FACIAL ANALYSIS MODULE
--> Refer to this [paper] [https://arxiv.org/abs/1905.00641], [directory] [https://github.com/niknarra/SE-Project---IntelliMeet/tree/main/facial_analysis], and [parent repository] [https://github.com/biubug6/Pytorch_Retinaface]
+* Refer to this [paper] [https://arxiv.org/abs/1905.00641], [directory] [https://github.com/niknarra/SE-Project---IntelliMeet/tree/main/facial_analysis], and [parent repository] [https://github.com/biubug6/Pytorch_Retinaface]
 ## FOR INFORMATION ON SPEECH-TO-TEXT TRANSCRIPTION MODULE
--> Refer to this [paper] [https://arxiv.org/abs/2212.04356], [directory] [https://github.com/niknarra/SE-Project---IntelliMeet/tree/main/audio_streaming], and [parent repository] [https://github.com/openai/whisper]
+* Refer to this [paper] [https://arxiv.org/abs/2212.04356], [directory] [https://github.com/niknarra/SE-Project---IntelliMeet/tree/main/audio_streaming], and [parent repository] [https://github.com/openai/whisper]
 
 
 ## REFERENCES
@@ -79,10 +82,7 @@ The audio streams of all participants are directed to the ML Feature 2 pipeline 
 
 
 ## DONE by FORE-MEMBERS
--> Premith Kumar Chilukuri (VTID: cpremithkumar) (GitHub ID: chpk)
-
--> Nikhil Narra (VTID: nikhilnarra) (GitHub ID: niknarra)
-
--> Krishna vamsi Dhulipalla (VTID: kdhulipalla13) (GitHub ID: krishna-creator)
-
--> Siva sagar Kolachina (VTID: sivasagar) (GitHub ID: siva-sagar)
+* Premith Kumar Chilukuri (VTID: cpremithkumar) (GitHub ID: chpk)
+* Nikhil Narra (VTID: nikhilnarra) (GitHub ID: niknarra)
+* Krishna vamsi Dhulipalla (VTID: kdhulipalla13) (GitHub ID: krishna-creator)
+* Siva sagar Kolachina (VTID: sivasagar) (GitHub ID: siva-sagar)
