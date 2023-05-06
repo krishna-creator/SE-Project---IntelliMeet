@@ -4,13 +4,41 @@ import time
 import pyaudio
 import tkinter
 from PIL import Image, ImageTk
+import json
 # Socket Create
 server_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 reciever_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM) # nature of scoket
 
 
-host_ip = '10.0.0.31'
-port = 9998
+
+def load_meeting_meta_data():
+    meeting_file = open("form_data.json")
+    meeting_data = json.load(meeting_file)
+    
+    host_ip = meeting_data[0]["main"]["ipaddress"]
+    host_email = meeting_data[0]["main"]["email"]
+    host_port_address = meeting_data[0]["main"]["port"]
+    host_name = meeting_data[0]["main"]["name"]
+    
+    #print(host_ip, host_email, host_port_address, host_name)
+    
+    parasite_ip = meeting_data[1]["others"][0]["ipaddress"]
+    parasite_email = meeting_data[1]["others"][0]["email"]
+    parasite_port_address = meeting_data[1]["others"][0]["port"]
+    parasite_name = meeting_data[1]["others"][0]["name"]
+    
+    print(host_ip, host_email, host_port_address, host_name)
+    
+    print(parasite_ip, parasite_email, parasite_port_address, parasite_name)
+    
+    return host_ip, host_email, host_port_address, host_name, parasite_ip, parasite_email, parasite_port_address, parasite_name
+
+
+h_ip, h_email, h_port_address, h_name, p_ip, p_email, p_port_address, p_name = load_meeting_meta_data()
+
+
+host_ip = p_ip
+port = int(p_port_address)
 socket_address = (host_ip,port)
 audio_server_socket_address = (host_ip,(port-20))
 server_socket.bind(socket_address)
@@ -18,8 +46,8 @@ server_socket.listen(1)
 
 
 
-reciever_IP_address = '10.0.0.31'
-reciever_port_address = 9999
+reciever_IP_address = h_ip
+reciever_port_address = int(h_port_address)
 reciever_socket_address = (reciever_IP_address, reciever_port_address)
 audio_reciever_socket_address = (reciever_IP_address, (reciever_port_address-20))
 
@@ -172,8 +200,8 @@ def app_UI():
     global UI_server_video_frames
     global UI_reciever_video_frames
     root = tkinter.Tk()
-    canvas1 = tkinter.Canvas(root, width=240, height=240)
-    canvas2 = tkinter.Canvas(root, width=240, height=240)
+    canvas1 = tkinter.Canvas(root, width=640 , height=360)
+    canvas2 = tkinter.Canvas(root, width=640, height=360)
 
     canvas1.pack(padx=5, pady=10, side="left")
     canvas2.pack(padx=5, pady=60, side="left")
