@@ -26,16 +26,25 @@ The camera streams of all participants are directed to the ML Feature 1 pipeline
 The audio streams of all participants are directed to the ML Feature 2 pipeline for speech-to-text transcription and subsequent text analysis. The text-to-speech feature in ML Feature 2 transcribes the audio streams of each participant to text based on their participant ID. These transcripts are then processed by a text analysis module to generate a meeting summary. Additionally, text scraping is carried out on the transcripts to generate an email that consolidates all the issues, dependencies, tasks, or events that were discussed during the meeting.
 ![alt text](https://github.com/niknarra/SE-Project---IntelliMeet/blob/main/diagrams/User%20Case%202.png)
 
+## NOTE:
+#### Execution/building IntelliMeet project of requires high computational power to execute. Also, as the application is not deployed, it will be bit tricky to run the application, because the server and client codes have to be executed simultaneously in-order to work properly for data transmission. Moreover, the following are the compulsory requirements to run IntelliMeet: 
+* 20+ dependencies
+* client-server architecure support
+* CUDA
+* NVIDIA GTX/RTX GPU
+* greater than Intel i7 9th gen processors for CPU
 
 ## ENVIRONMENT SETUP:
-
+-> Installing ```python language``` in your PC/Laptop, for more details [refer to] (https://www.tutorialspoint.com/how-to-install-python-in-windows)
+-> Install ```miniconda terminal``` in your PC/Laptop, for more detils [refer to] (https://docs.conda.io/en/latest/miniconda.html)
+-> create a "conda environment" using the following command ```conda create --name intellimeet``` 
+-> after creating the environment for intellimeet, activate the environment by executing ```conda activate intellimeet```.
+-> install ffmpeg on your device, follow the instruction provided in this [link for windows] (https://www.geeksforgeeks.org/how-to-install-ffmpeg-on-windows/) or [this link for linux] (https://phoenixnap.com/kb/install-ffmpeg-ubuntu).
+-> repeat the above steps for all the computers/devices in which you are planning to run IntelliMeet.
 
 
 ## DEPENDENCIES INSTALLATION (Python Packages):
 
-
-
-## NOTE:
 
 
 
