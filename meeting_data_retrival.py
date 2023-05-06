@@ -1,7 +1,7 @@
 import json
 
 
-def load_audio_transcripts_data():
+def load_meeting_meta_data():
     meeting_file = open("form_data.json")
     meeting_data = json.load(meeting_file)
     
@@ -23,4 +23,4 @@ def load_audio_transcripts_data():
     
     return host_ip, host_email, host_port_address, host_name, parasite_ip, parasite_email, parasite_port_address, parasite_name
     
-load_audio_transcripts_data()
+load_meeting_meta_data()
