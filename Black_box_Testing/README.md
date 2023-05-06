@@ -58,7 +58,7 @@ pip3 install email
 * Navigate to the ```/Black_box_Testing/``` directory
 * Open a terminal in the ```/Black_box_Testing/``` directory 
 * Then run the “black_box_test_case.py” code, using the following command ```python black_box_test_case.py```, if an error is faced, execute the following command ```python3 black_box_test_case.py```
-* Wait for 5 to 10 seconds and then check email if personalized meeting summaries are received from “sid2lose@outlook.com” email.
+* Wait for 10 to 20 seconds and then check email if personalized meeting summaries are received from “sid2lose@outlook.com” email.
 * If an email is not received, please check the spam folder in your email.
 
 -> Expected Output:
