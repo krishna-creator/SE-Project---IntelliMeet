@@ -42,3 +42,43 @@ pip3 install email
 ```
 
 ## STEPS ON HOW TO RUN THE UNIT TEST CASES
+```shell
+# check if the transfered image has width, height and depth of 360px, 462, 3
+python -m unittest Image_data_transfer_unit_test_1.py
+
+# check if the transfered image has width of 360px
+python -m unittest Image_data_transfer_unit_test_2.py
+
+# check if the transfered image has width of 360px by "asserNotEqual" function
+python -m unittest Image_data_transfer_unit_test_3.py
+
+# checking if the email authentication service is from OUTLOOK
+python -m unittest unit_test_1.py
+
+# Validating if the email address to send are "sid2lose@outlook.com", "ch.premith.k@gmail.com"
+python -m unittest unit_test_2.py
+
+# validating if the email's subject is "Personlized Meeting Attentiveness summary"
+python -m unittest unit_test_3.py
+
+# validating if the email's subject is "Personlized Meeting Attentiveness summary" by "asserNotEqual" function
+python -m unittest unit_test_4.py
+
+# validating host email address
+python -m unittest Unit_Test_Meeting_data_retrival.py
+
+# validating host IP ADDRESS
+python -m unittest Unit_Test_Meeting_data_retrival_1.py
+
+# validating receiver IP ADDRESS
+python -m unittest Unit_Test_Meeting_data_retrival_2.py
+
+# validating receiver email address
+python -m unittest Unit_Test_Meeting_data_retrival_3.py
+
+# validating receiver port address
+python -m unittest Unit_Test_Meeting_data_retrival_4.py
+
+# validating host/server's port address
+python -m unittest Unit_Test_Meeting_data_retrival_5.py
+```
