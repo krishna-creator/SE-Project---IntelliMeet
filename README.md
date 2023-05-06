@@ -139,7 +139,7 @@ pip3 install python-dotenv
 
 
 ## STEPS TO RUN THE APPLICATION
-How to send meeting invites using the meeting registration page
+### How to send meeting invites using the meeting registration page
 * Clone the repository using ```https://github.com/niknarra/SE-Project---IntelliMeet.git```
 * Navigate to ```./front-end/``` directory.
 * run the app.py using ```python app.py``` command (if that didn't work, try this) ```python3 app.py``` command
@@ -148,7 +148,7 @@ How to send meeting invites using the meeting registration page
 * click on "send invite" button, an email containing "form_data.json" will be mailed to you.
 * place the "form_data.json" in ```SE-Project---IntelliMeet``` repository.
 
-Steps to run the application at server-side (i.e computational HUB, note this device should have high computational power.)
+### Steps to run the application at server-side (i.e computational HUB, note this device should have high computational power.)
 * Clone the repository using ```https://github.com/niknarra/SE-Project---IntelliMeet.git``` (Ignore if already done)
 * Navigate to ```SE-Project---IntelliMeet``` repository using ```cd ./SE-Project---IntelliMeet/```
 * Download the latest "form_data.json" meeting invite from your email
@@ -160,7 +160,7 @@ Steps to run the application at server-side (i.e computational HUB, note this de
 * Now wait till the meeting UI pops up, once its pops up start your meeting with the other participant (i.e. the person on the client side (steps on how to run the application at client side is provided below))
 * close the UI by clicking the cross button (located on top-right), and then stop the code execution in terminal to completely stop the execution of IntelliMeet.
 
-Steps to run the application at server-side (i.e computational HUB, note this device should have high computational power.)
+### Steps to run the application at server-side (i.e computational HUB, note this device should have high computational power.)
 * Clone the repository using ```https://github.com/niknarra/SE-Project---IntelliMeet.git``` (Ignore if already done)
 * Navigate to ```SE-Project---IntelliMeet``` repository using ```cd ./SE-Project---IntelliMeet/```
 * Download the latest "form_data.json" meeting invite from your email
@@ -187,11 +187,9 @@ Steps to run the application at server-side (i.e computational HUB, note this de
 
 
 ## REFERENCES
-[1] J Deng, J Guo, E Ververas, I Kotsia, and S Zafeiriou. 2020. RetinaFace: Single- Shot Multi-Level Face Localisation in the Wild. In 2020 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR). 5202–5211.
-
-[2] Alec Radford, Jong Wook Kim, et al. 2022. Robust Speech Recognition via Large-Scale Weak Supervision. In Arxiv. https://doi.org/10.48550/arXiv.2212. 04356Focustolearnmore.
-
-[3] Yang, Qiang, Liu, et al. 2019. Federated Machine Learning: Concept and Applications. ACM Transactions on Intelligent Systems and Technology 10, 2 (2019), 1–19. 10.1145/3298981
+* [1] J Deng, J Guo, E Ververas, I Kotsia, and S Zafeiriou. 2020. RetinaFace: Single- Shot Multi-Level Face Localisation in the Wild. In 2020 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR). 5202–5211.
+* [2] Alec Radford, Jong Wook Kim, et al. 2022. Robust Speech Recognition via Large-Scale Weak Supervision. In Arxiv. https://doi.org/10.48550/arXiv.2212. 04356Focustolearnmore.
+* [3] Yang, Qiang, Liu, et al. 2019. Federated Machine Learning: Concept and Applications. ACM Transactions on Intelligent Systems and Technology 10, 2 (2019), 1–19. 10.1145/3298981
 
 ## Issue Tracking and Project Planning
 * We used [GitHub issues] (https://github.com/niknarra/SE-Project---IntelliMeet/issues?q=is%3Aopen) to track and resolve the issues.
