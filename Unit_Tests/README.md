@@ -42,6 +42,8 @@ pip3 install email
 ```
 
 ## STEPS ON HOW TO RUN THE UNIT TEST CASES
+* setup the unit test case environment as mentioned above
+* Install the necessary python libraries (as mentioned above) that are required to run the unit-box test case
 ```shell
 # check if the transfered image has width, height and depth of 360px, 462, 3
 python -m unittest Image_data_transfer_unit_test_1.py
