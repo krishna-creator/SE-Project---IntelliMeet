@@ -2,8 +2,14 @@
 Repository for CS 5704 Software Engineering project.
 
 # IntelliMeet: AI-Enabled Decentralized Video Conferencing Application.
+###Introduction: 
+‘IntelliMeet’ is a peer-to-peer video conferencing application that is decentralized and combines federation learning techniques [3] with machine learning techniques to robustly automate minutes of meetings and analyze participant attentiveness. IntelliMeet enhances user privacy through peer-to-peer federation learning training mechanisms. Meeting attendees multitask while attending remote or virtual meetings, which can negatively affect teamwork and collaboration. IntelliMeet addresses this issue by using machine learning and pose-aware computer vision techniques to identify whether participants are paying attention, thereby encouraging more active participation and reducing the likelihood of multitasking. Furthermore, the application implements a log-mel transformer to automatically convert meeting speech to text in real-time; and GPT-based natural language processing techniques to analyze transcribed meeting notes to generate minutes of meetings via email triggers to meeting participants. This reduces participant workloads and increases productivity. The features of IntelliMeet, along with its architecture efficiency and automation capabilities, will provide a secure and private video conferencing experience that will enhance teamwork and collaboration. With the increase in remote work, IntelliMeet can play a crucial role in helping organizations and individuals achieve their productivity goals.
 
-Introduction: ‘IntelliMeet’ is a peer-to-peer video conferencing application that is decentralized and combines federation learning techniques [3] with machine learning techniques to robustly automate minutes of meetings and analyze participant attentiveness. IntelliMeet enhances user privacy through peer-to-peer federation learning training mechanisms. Meeting attendees multitask while attending remote or virtual meetings, which can negatively affect teamwork and collaboration. IntelliMeet addresses this issue by using machine learning and pose-aware computer vision techniques to identify whether participants are paying attention, thereby encouraging more active participation and reducing the likelihood of multitasking. Furthermore, the application implements a log-mel transformer to automatically convert meeting speech to text in real-time; and GPT-based natural language processing techniques to analyze transcribed meeting notes to generate minutes of meetings via email triggers to meeting participants. This reduces participant workloads and increases productivity. The features of IntelliMeet, along with its architecture efficiency and automation capabilities, will provide a secure and private video conferencing experience that will enhance teamwork and collaboration. With the increase in remote work, IntelliMeet can play a crucial role in helping organizations and individuals achieve their productivity goals.
+## DONE by FORE-MEMBERS
+* Premith Kumar Chilukuri (VTID: cpremithkumar) (GitHub ID: chpk)
+* Nikhil Narra (VTID: nikhilnarra) (GitHub ID: niknarra)
+* Krishna vamsi Dhulipalla (VTID: kdhulipalla13) (GitHub ID: krishna-creator)
+* Siva sagar Kolachina (VTID: sivasagar) (GitHub ID: siva-sagar)
 
 ## APPLICATION PIPELINE:
 ![alt text](https://github.com/niknarra/SE-Project---IntelliMeet/blob/main/diagrams/pipeline.png)
@@ -178,6 +184,7 @@ pip3 install python-dotenv
 ### Black-Box testing
 * For more details on IntelliMeet's Black-Box Testing refer to the [following directory] [https://github.com/niknarra/SE-Project---IntelliMeet/tree/main/Black_box_Testing]
 * The Above directory consists of dependency installation instructions, black-box test-plan, and a black-box test case related to Use-Case 1.
+* More details regarding black-box testing on the meeting registration page can be found [here] (https://github.com/niknarra/SE-Project---IntelliMeet/tree/main/front-end/BlackBox_TestCases)
 
 
 ## FOR INFORMATION ON FACIAL ANALYSIS MODULE
