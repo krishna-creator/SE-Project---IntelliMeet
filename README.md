@@ -37,7 +37,7 @@ The audio streams of all participants are directed to the ML Feature 2 pipeline 
 * Proper Internet Connection.
 
 ## ENVIRONMENT SETUP:
-* Installing ```python language``` in your PC/Laptop, for more details [refer to] (https://www.tutorialspoint.com/how-to-install-python-in-windows)
+* Installing ```python3 language``` in your PC/Laptop, for more details [refer to] (https://www.tutorialspoint.com/how-to-install-python-in-windows), Generally Python3 is pre-built for Linux.
 * Install ```miniconda terminal``` in your PC/Laptop, for more detils [refer to] (https://docs.conda.io/en/latest/miniconda.html)
 * create a "conda environment" using the following command ```conda create --name intellimeet``` 
 * after creating the environment for intellimeet, activate the environment by executing ```conda activate intellimeet```.
@@ -194,6 +194,9 @@ pip3 install python-dotenv
 ## Issue Tracking and Project Planning
 * We used [GitHub issues] (https://github.com/niknarra/SE-Project---IntelliMeet/issues?q=is%3Aopen) to track and resolve the issues.
 * we used [GitHub's Kanban board] (https://github.com/users/niknarra/projects/1) for task planning, estimation, scheduling, and prioritization.
+
+## Link for Project DEMO
+* [Google Drive Link] (https://drive.google.com/file/d/1S2qJ1yGH0lBaoXBXXAPqjtfLwIzaFg08/view?usp=sharing)
 
 ## DONE by FORE-MEMBERS
 * Premith Kumar Chilukuri (VTID: cpremithkumar) (GitHub ID: chpk)
