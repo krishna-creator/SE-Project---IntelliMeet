@@ -1,12 +1,40 @@
 
 Premith: 
-Premith:  eh
+Premith:  You
+Nikhil:  No.
+Premith:  Hello Nikhil.
+Nikhil:  Hello, Promet. How are you? Hello, Promet. How are you?
+Premith:  I'm fine.
+Nikhil:  Okay.
+Premith:  We are trying to build a.
+Nikhil:  tell me what your project is about.
+Premith:  the centralized video conferencing application that automates meeting minutes and also
 Nikhil: 
-Premith:  Yo, hello, hello, hello, hello, are you?
-Nikhil:  Yo, hello. Are you? Are you? Yo, hello. Are you? Are you?
-Premith:  Are you, are you, are you, are you doing staying, staying, staying, staying? You're, you're... Are you, are you, are you, are you doing staying, staying, staying, staying? You're, you're...
-Nikhil:  What are you doing?
-Premith:  no, no, no, no, no, no, no, no, no.
-Nikhil:  remain free toermaids.
-Premith:  What? What? What? What? What? What? What? What? What? What?
+Premith:  perform sedentary analysis of quiet spins.
+Nikhil:  ok what have you done?
+Premith: 
+Nikhil:  till now.
+Premith:  modules, audio transmission modules and ML features for facial analysis.
 Nikhil: 
+Premith:  and speech-to-text transcription.
+Nikhil:  Okay, that's nice. Is there something that's blocking? Okay, that's nice. Is there something that's blocking?
+Premith:  Yeah, the speech.
+Nikhil:  Thank you.
+Premith:  text performance is not that in real time like the speed of that can be
+Nikhil: 
+Premith:  increased and the phase detection results can also be
+Nikhil:  Okay.
+Premith:  increased, like the accuracy of that of them can be increased.
+Nikhil:  Okay.
+Premith:  Ah. Arcc. What? There. There's something here. Ah. Arcc. What? There.
+Nikhil:  So, what are the next steps?
+Premith:  Next we are trying to increase the number of participants in the meeting and we are also
+Nikhil:  Thank you.
+Premith:  trying to improve the audio processing accuracy.
+Nikhil: 
+Premith:  and also the accuracy of phase detection module.
+Nikhil:  Yeah, yeah, she was saying, definitely I am feeling both thezelf. Yeah, yeah, she was saying, definitely I am feeling both thezelf.
+Premith:  STAM습
+Nikhil:  In that case, we will meet during our next meeting. Thank you.
+Premith:  Thank you. Bye.. Thank you. Bye..
+Nikhil:  Thank you.
