@@ -37,8 +37,8 @@ def load_meeting_meta_data():
 h_ip, h_email, h_port_address, h_name, p_ip, p_email, p_port_address, p_name = load_meeting_meta_data()
 
 
-host_ip = p_ip
-port = int(p_port_address)
+host_ip = h_ip
+port = int(h_port_address)
 socket_address = (host_ip,port)
 audio_server_socket_address = (host_ip,(port-20))
 server_socket.bind(socket_address)
@@ -46,8 +46,8 @@ server_socket.listen(1)
 
 
 
-reciever_IP_address = h_ip
-reciever_port_address = int(h_port_address)
+reciever_IP_address = p_ip
+reciever_port_address = int(p_port_address)
 reciever_socket_address = (reciever_IP_address, reciever_port_address)
 audio_reciever_socket_address = (reciever_IP_address, (reciever_port_address-20))
 
