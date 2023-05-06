@@ -44,11 +44,10 @@ The audio streams of all participants are directed to the ML Feature 2 pipeline 
 
 
 ## APPLICATION TESTING DETAILS
-#### Unit Testing
+### Unit Testing
 For more details on IntelliMeet's Unit Testing refer to the [following directory] [https://github.com/niknarra/SE-Project---IntelliMeet/tree/main/Unit_Tests]
 The Above directory consists of dependency installation instructions and some sample unit test cases which were done during the testing phase of IntelliMeet.
-
-#### Black-Box testing
+### Black-Box testing
 For more details on IntelliMeet's Black-Box Testing refer to the [following directory] [https://github.com/niknarra/SE-Project---IntelliMeet/tree/main/Black_box_Testing]
 The Above directory consists of dependency installation instructions, black-box test-plan, and a black-box test case related to Use-Case 1.
 
