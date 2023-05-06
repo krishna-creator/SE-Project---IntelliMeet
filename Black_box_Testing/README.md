@@ -1,4 +1,4 @@
-## Details for Black Box testing will be added here
+# Details of IntelliMeet's Black Box testing
 
 
 ## NOTE: 
