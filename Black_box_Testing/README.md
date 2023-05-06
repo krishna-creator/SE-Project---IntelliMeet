@@ -1,19 +1,21 @@
 ## Details for Black Box testing will be added here
 
-- ![#f03c15](https://placehold.co/15x15/f03c15/f03c15.png) `#f03c15`
-## NOTE: 
-### Generic black-box testing can't be performed because the usecases require high computational power to execute. The following are the compulsory requirements to execute a generic Usecase 1 blackbox testing: client-server architecure, CUDA, NVIDIA GTX/RTX GPU, Intel <i7 9th gen processors.
 
-- ![#c5f015](https://placehold.co/15x15/c5f015/c5f015.png) `#c5f015`
 ## NOTE: 
-### So to ease the process of blackbox testing in our case, i.e for any user to execute the the functionality of UseCase 1, we have fragmented a piece of code in IntelliMeet, which considers already generated (PRE-BUILT) meeting notes and participant's attentiveness report to generate personalized meeting attention report.
+#### Generic black-box testing can't be performed because the usecases require high computational power to execute. The following are the compulsory requirements to execute a generic Usecase 1 blackbox testing: client-server architecure, CUDA, NVIDIA GTX/RTX GPU, Intel <i7 9th gen processors.
 
-#### Environment Setup:
+
+## NOTE (Proves USE CASE 1): 
+#### So to ease the process of blackbox testing in this case (consider TC_001 and TC_002), i.e for any user to execute the the functionality of UseCase 1, we have fragmented a piece of code in IntelliMeet, which considers already generated (PRE-BUILT) meeting notes and participant's attentiveness report to generate personalized meeting attention report.
+
+
+## Environment Setup:
 -> Installing python language in your PC/Laptop, for more details [refer to] (https://www.tutorialspoint.com/how-to-install-python-in-windows)
 -> Install miniconda terminal in your PC/Laptop, for more detils [refer to] (https://docs.conda.io/en/latest/miniconda.html)
 -> create a "conda environment" using the following command ```conda create --name intellimeet```, after creating the envoronment for intellimeet, activate the environment by executing ```conda activate intellimeet```.
 
-#### Python Libraries/Dependecy Installation:
+
+## Python Libraries/Dependecy Installation:
 -> Install the following python libraries that are required to run the black-box test case
 ```bash
 # install json library
@@ -38,6 +40,7 @@ pip3 install email
 ```
 
 ## BLACK-BOX TEST CASES
+
 ### Test ID: TC_001
 
 -> Description: Proves Use Case 1, check if personalized meeting reports are sent to “dcbrown@vt.edu” and “smgruber@vt.edu” emails.
