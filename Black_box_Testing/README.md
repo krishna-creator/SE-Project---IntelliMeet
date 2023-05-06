@@ -2,10 +2,10 @@
 
 
 ## NOTE: 
-#### Generic black-box testing can't be performed because the usecases require high computational power to execute. The following are the compulsory requirements to execute a generic Usecase 1 blackbox testing: client-server architecure, CUDA, NVIDIA GTX/RTX GPU, Intel <i7 9th gen processors.
+#### Generic black-box testing can't be performed because the usecases require high computational power to execute. Also, as the application is not deployed, it will be difficult to perform black-box testing, because the server and client codes have to be executed simultaneously in-order to work properly. The following are the compulsory requirements to execute a generic Usecase 1 blackbox testing: 20+ dependencies, client-server architecure, CUDA, NVIDIA GTX/RTX GPU, Intel <i7 9th gen processors.
 
 
-## NOTE (Proves USE CASE 1): 
+## NOTE (RECOMMENDED -- BLACK BOX TESTING PLAN (TC_001 and TC_002), USE CASE 1 proof): 
 #### So to ease the process of blackbox testing in this case (consider TC_001 and TC_002), i.e for any user to execute the the functionality of UseCase 1, we have fragmented a piece of code in IntelliMeet, which considers already generated (PRE-BUILT) meeting notes and participant's attentiveness report to generate personalized meeting attention report.
 
 
