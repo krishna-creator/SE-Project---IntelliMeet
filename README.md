@@ -27,12 +27,14 @@ The audio streams of all participants are directed to the ML Feature 2 pipeline 
 ![alt text](https://github.com/niknarra/SE-Project---IntelliMeet/blob/main/diagrams/User%20Case%202.png)
 
 ## NOTE:
-#### Execution/building IntelliMeet project of requires high computational power to execute. Also, as the application is not deployed, it will be bit tricky to run the application, because the server and client codes have to be executed simultaneously in-order to work properly for data transmission. Moreover, the following are the compulsory requirements to run IntelliMeet: 
+#### Execution/building IntelliMeet project requires high computational power. Also, as the application is not deployed, it will be bit tricky to run the application, because the server and client codes should have to be executed simultaneously in-order to work properly during data transmission. Moreover, the following are the  requirements to run IntelliMeet: 
 * 20+ dependencies
 * client-server architecure support
 * CUDA
-* NVIDIA GTX/RTX GPU
+* NVIDIA GTX/RTX GPU (with VRAM capacity <= 6GB)
 * greater than Intel i7 9th gen processors for CPU
+* RAM capacity <8 GB
+* Proper Internet Connection.
 
 ## ENVIRONMENT SETUP:
 * Installing ```python language``` in your PC/Laptop, for more details [refer to] (https://www.tutorialspoint.com/how-to-install-python-in-windows)
@@ -46,7 +48,7 @@ The audio streams of all participants are directed to the ML Feature 2 pipeline 
 ## DEPENDENCIES INSTALLATION (Python Packages):
 Install the following python libraries that are required to run the application (we are implementing the application in python3)
 ```bash
-# INSTALL PyTORCH library (installation process will be difffrent for every OS and GPU support) by following the documentationof in this link "https://pytorch.org/get-started/locally/"
+# [important note:] INSTALL PyTORCH library (installation process will be difffrent for every OS and GPU support) by following the documentationof in this link "https://pytorch.org/get-started/locally/"
 
 # install json library
 pip install json # if this command dosent work try the below one
@@ -121,15 +123,54 @@ pip3 install mime
 # install email library
 pip install email  # if this command dosent work try the below one
 pip3 install email
+
+# install flask library for UI
+pip install Flask  # if this command dosent work try the below one
+pip3 install Flask
+
+# install tKinter library for UI
+pip install tk  # if this command dosent work try the below one
+pip3 install tk
+
+# install dotenv library for UI
+pip install python-dotenv  # if this command dosent work try the below one
+pip3 install python-dotenv
 ```
 
 
-## STEPS TO RUN THE PROGRAM
+## STEPS TO RUN THE APPLICATION
+How to send meeting invites using the meeting registration page
+* Clone the repository using ```https://github.com/niknarra/SE-Project---IntelliMeet.git```
+* Navigate to ```./front-end/``` directory.
+* run the app.py using ```python app.py``` command (if that didn't work, try this) ```python3 app.py``` command
+* open a browser and then enter the following [url] (http://localhost:5000/)
+* enter the meeting details (ADD a total of 2 participants only)
+* click on "send invite" button, an email containing "form_data.json" will be mailed to you.
+* place the "form_data.json" in ```SE-Project---IntelliMeet``` repository.
 
+Steps to run the application at server-side (i.e computational HUB, note this device should have high computational power.)
+* Clone the repository using ```https://github.com/niknarra/SE-Project---IntelliMeet.git``` (Ignore if already done)
+* Navigate to ```SE-Project---IntelliMeet``` repository using ```cd ./SE-Project---IntelliMeet/```
+* Download the latest "form_data.json" meeting invite from your email
+* Make sure your have the latest "form_data.json" file locally in the ```SE-Project---IntelliMeet``` repository
+* Download the ML feature 1 (facial analysis) model weights by following the instructions specified in this [link] (https://github.com/niknarra/SE-Project---IntelliMeet/tree/main/weights)
+* place the downloaded weight files in the ```./weights/``` directory itself.
+* Make sure if your have "audio_results.json", "error.jpg", "face_detection_results.json", "form_data.json", "graph_plotting.py", "meeting_notes.txt", "mic_video_buttons.jpg", "video_face_detect.py" files locally in the ```./SE-Project---IntelliMeet/``` directory.
+* Now, run the "Modified_UI_computational_video_audio_server.py" file using ```python Modified_UI_computational_video_audio_server.py``` command, (if that didn't work, try this) ```python Modified_UI_computational_video_audio_server.py``` command
+* Now wait till the meeting UI pops up, once its pops up start your meeting with the other participant (i.e. the person on the client side (steps on how to run the application at client side is provided below))
+* close the UI by clicking the cross button (located on top-right), and then stop the code execution in terminal to completely stop the execution of IntelliMeet.
+
+Steps to run the application at server-side (i.e computational HUB, note this device should have high computational power.)
+* Clone the repository using ```https://github.com/niknarra/SE-Project---IntelliMeet.git``` (Ignore if already done)
+* Navigate to ```SE-Project---IntelliMeet``` repository using ```cd ./SE-Project---IntelliMeet/```
+* Download the latest "form_data.json" meeting invite from your email
+* Make sure your have the latest "form_data.json" file locally in the ```SE-Project---IntelliMeet``` repository
+* Now, run the "UI_Video_Audio_client_transmisson.py" file using ```python UI_Video_Audio_client_transmisson.py``` command, (if that didn't work, try this) ```python UI_Video_Audio_client_transmisson.py``` command
+* Now wait till the meeting UI pops up, once its pops up start your meeting with the other participant (i.e. the person on the server side (steps on how to run the application at siver side is provided above))
+* close the UI by clicking the cross button (located on top-right), and then stop the code execution in terminal to completely stop the execution of IntelliMeet.
 
 
 ## APPLICATION TESTING DETAILS
-
 ### Unit Testing
 * For more details on IntelliMeet's Unit Testing refer to the [following directory] [https://github.com/niknarra/SE-Project---IntelliMeet/tree/main/Unit_Tests]
 * The Above directory consists of dependency installation instructions and some sample unit test cases which were done during the testing phase of IntelliMeet.
@@ -152,7 +193,9 @@ pip3 install email
 
 [3] Yang, Qiang, Liu, et al. 2019. Federated Machine Learning: Concept and Applications. ACM Transactions on Intelligent Systems and Technology 10, 2 (2019), 1–19. 10.1145/3298981
 
-
+## Issue Tracking and Project Planning
+* We used [GitHub issues] (https://github.com/niknarra/SE-Project---IntelliMeet/issues?q=is%3Aopen) to track and resolve the issues.
+* we used [GitHub's Kanban board] (https://github.com/users/niknarra/projects/1) for task planning, estimation, scheduling, and prioritization.
 
 ## DONE by FORE-MEMBERS
 * Premith Kumar Chilukuri (VTID: cpremithkumar) (GitHub ID: chpk)
