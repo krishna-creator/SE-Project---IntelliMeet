@@ -54,13 +54,13 @@ The audio streams of all participants are directed to the ML Feature 2 pipeline 
 -> The Above directory consists of dependency installation instructions, black-box test-plan, and a black-box test case related to Use-Case 1.
 
 
-## -> For more information on the facial analysis module
+## FOR INFORMATION ON FACIAL ANALYSIS MODULE
 -> Refer to this [paper] [https://arxiv.org/abs/1905.00641], [directory] [https://github.com/niknarra/SE-Project---IntelliMeet/tree/main/facial_analysis], and [parent repository] [https://github.com/biubug6/Pytorch_Retinaface]
-## -> For more information on the speech-to-text transcription module
+## FOR INFORMATION ON SPEECH-TO-TEXT TRANSCRIPTION MODULE
 -> Refer to this [paper] [https://arxiv.org/abs/2212.04356], [directory] [https://github.com/niknarra/SE-Project---IntelliMeet/tree/main/audio_streaming], and [parent repository] [https://github.com/openai/whisper]
 
 
-## -> REFERENCES
+## REFERENCES
 [1] J Deng, J Guo, E Ververas, I Kotsia, and S Zafeiriou. 2020. RetinaFace: Single- Shot Multi-Level Face Localisation in the Wild. In 2020 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR). 5202–5211.
 
 [2] Alec Radford, Jong Wook Kim, et al. 2022. Robust Speech Recognition via Large-Scale Weak Supervision. In Arxiv. https://doi.org/10.48550/arXiv.2212. 04356Focustolearnmore.
