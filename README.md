@@ -44,8 +44,84 @@ The audio streams of all participants are directed to the ML Feature 2 pipeline 
 
 
 ## DEPENDENCIES INSTALLATION (Python Packages):
+Install the following python libraries that are required to run the application (we are implementing the application in python3)
+```bash
+# INSTALL PyTORCH library (installation process will be difffrent for every OS and GPU support) by following the documentationof in this link "https://pytorch.org/get-started/locally/"
 
+# install json library
+pip install json # if this command dosent work try the below one
+pip3 install json
 
+# install argparse library
+pip install argparse # if this command dosent work try the below one
+pip3 install argparse
+
+# install numpy library
+pip install numpy
+pip3 install numpy
+
+# install OpenCV library
+pip install opencv-python # if this command dosent work try the below one
+pip3 install opencv-python
+
+# install Sockets library
+pip install sockets # if this command dosent work try the below one
+pip3 install sockets
+
+# install struct library
+pip install supyr-struct # if this command dosent work try the below one
+pip3 install supyr-struct
+
+# install imutils library
+pip install imutils # if this command dosent work try the below one
+pip3 install imutils
+
+# install time library
+pip install python-time # if this command dosent work try the below one
+pip3 install python-time
+
+# Manually install portaudio library
+
+# install pyaudio library
+pip install PyAudio # if this command dosent work try the below one
+pip3 install PyAudio
+
+# install wave library
+pip install Wave # if this command dosent work try the below one
+pip3 install Wave
+pip install PyWave # if this command dosent work try the below one
+pip3 install PyWave
+
+# install PIP library
+pip install --upgrade Pillow # if this command dosent work try the below one
+pip3 install --upgrade Pillow
+
+install whisper library
+pip install -U openai-whisper # if this command dosent work try the below one
+pip3 install -U openai-whisper
+pip install setuptools-rust # if this command dosent work try the below one
+pip install setuptools-rust
+
+# install transformers library
+pip install transformers # if this command dosent work try the below one
+pip3 install transformers
+
+# install matplotlib library
+pip install matplotlib  # if this command dosent work try the below one
+pip3 install matplotlib
+
+# install smtplib library
+pip install secure-smtplib  # if this command dosent work try the below one
+pip3 install secure-smtplib
+
+# install mime library
+pip install mime  # if this command dosent work try the below one
+pip3 install mime
+
+# install email library
+pip install email  # if this command dosent work try the below one
+pip3 install email
+```
 
 
 ## STEPS TO RUN THE PROGRAM
