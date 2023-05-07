@@ -1,3 +1,4 @@
+# load dependencies and libraries
 from __future__ import print_function
 import os
 import torch
@@ -12,7 +13,7 @@ import time
 import datetime
 import math
 from models.retinaface import RetinaFace
-
+# argument parsing for models and functions
 parser = argparse.ArgumentParser(description='Retinaface Training')
 parser.add_argument('--training_dataset', default='./data/widerface/train/label.txt', help='Training dataset directory')
 parser.add_argument('--network', default='mobile0.25', help='Backbone network mobile0.25 or resnet50')
@@ -24,9 +25,9 @@ parser.add_argument('--resume_epoch', default=0, type=int, help='resume iter for
 parser.add_argument('--weight_decay', default=5e-4, type=float, help='Weight decay for SGD')
 parser.add_argument('--gamma', default=0.1, type=float, help='Gamma update for SGD')
 parser.add_argument('--save_folder', default='./weights/', help='Location to save checkpoint models')
-
+# object instance of arg parse
 args = parser.parse_args()
-
+# checking the dtaset folder
 if not os.path.exists(args.save_folder):
     os.mkdir(args.save_folder)
 cfg = None
@@ -34,7 +35,7 @@ if args.network == "mobile0.25":
     cfg = cfg_mnet
 elif args.network == "resnet50":
     cfg = cfg_re50
-
+# establshing the input tensor size for traning data
 rgb_mean = (104, 117, 123) # bgr order
 num_classes = 2
 img_dim = cfg['image_size']
@@ -42,7 +43,7 @@ num_gpu = cfg['ngpu']
 batch_size = cfg['batch_size']
 max_epoch = cfg['epoch']
 gpu_train = cfg['gpu_train']
-
+# passing device instances for training
 num_workers = args.num_workers
 momentum = args.momentum
 weight_decay = args.weight_decay
@@ -50,11 +51,11 @@ initial_lr = args.lr
 gamma = args.gamma
 training_dataset = args.training_dataset
 save_folder = args.save_folder
-
+# net is an instace of teh retinaface class
 net = RetinaFace(cfg=cfg)
 print("Printing net...")
 print(net)
-
+# trainign resume
 if args.resume_net is not None:
     print('Loading resume network...')
     state_dict = torch.load(args.resume_net)
@@ -69,7 +70,7 @@ if args.resume_net is not None:
             name = k
         new_state_dict[name] = v
     net.load_state_dict(new_state_dict)
-
+# restructure the training data based on GPUs availabe
 if num_gpu > 1 and gpu_train:
     net = torch.nn.DataParallel(net).cuda()
 else:
@@ -77,33 +78,34 @@ else:
 
 cudnn.benchmark = True
 
-
+# initilizing the optimization function
 optimizer = optim.SGD(net.parameters(), lr=initial_lr, momentum=momentum, weight_decay=weight_decay)
 criterion = MultiBoxLoss(num_classes, 0.35, True, 0, True, 7, 0.35, False)
-
+# fitting the training data to PriorBox
 priorbox = PriorBox(cfg, image_size=(img_dim, img_dim))
+# fitting training data gradient
 with torch.no_grad():
     priors = priorbox.forward()
     priors = priors.cuda()
-
+# defining training function
 def train():
     net.train()
     epoch = 0 + args.resume_epoch
     print('Loading Dataset...')
-
+    # initilizing dataset object for widerfacedetection function
     dataset = WiderFaceDetection( training_dataset,preproc(img_dim, rgb_mean))
-
+    # defining epoch size
     epoch_size = math.ceil(len(dataset) / batch_size)
     max_iter = max_epoch * epoch_size
 
     stepvalues = (cfg['decay1'] * epoch_size, cfg['decay2'] * epoch_size)
     step_index = 0
-
+    # raining resume flag
     if args.resume_epoch > 0:
         start_iter = args.resume_epoch * epoch_size
     else:
         start_iter = 0
-
+    # training epoch range
     for iteration in range(start_iter, max_iter):
         if iteration % epoch_size == 0:
             # create batch iterator
@@ -111,7 +113,7 @@ def train():
             if (epoch % 10 == 0 and epoch > 0) or (epoch % 5 == 0 and epoch > cfg['decay1']):
                 torch.save(net.state_dict(), save_folder + cfg['name']+ '_epoch_' + str(epoch) + '.pth')
             epoch += 1
-
+        # load temporary data as per time stamp
         load_t0 = time.time()
         if iteration in stepvalues:
             step_index += 1
@@ -138,6 +140,7 @@ def train():
               .format(epoch, max_epoch, (iteration % epoch_size) + 1,
               epoch_size, iteration + 1, max_iter, loss_l.item(), loss_c.item(), loss_landm.item(), lr, batch_time, str(datetime.timedelta(seconds=eta))))
 
+    # saving the trained model
     torch.save(net.state_dict(), save_folder + cfg['name'] + '_Final.pth')
     # torch.save(net.state_dict(), save_folder + 'Final_Retinaface.pth')
 
@@ -152,6 +155,7 @@ def adjust_learning_rate(optimizer, gamma, epoch, step_index, iteration, epoch_s
         lr = 1e-6 + (initial_lr-1e-6) * iteration / (epoch_size * warmup_epoch)
     else:
         lr = initial_lr * (gamma ** (step_index))
+    # looping traingin and testing parameters for optimizer functions
     for param_group in optimizer.param_groups:
         param_group['lr'] = lr
     return lr
