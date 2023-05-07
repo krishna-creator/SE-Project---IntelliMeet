@@ -1,3 +1,4 @@
+# intializing and calling dependencies and libraries 
 from __future__ import print_function
 import os
 import argparse
@@ -13,6 +14,7 @@ from utils.box_utils import decode, decode_landm
 import time
 import math
 
+# initilizing arugment parsers for functions and classes
 parser = argparse.ArgumentParser(description='Retinaface')
 
 parser.add_argument('-m', '--trained_model', default='weights/Resnet50_Final.pth',
@@ -25,11 +27,13 @@ parser.add_argument('--nms_threshold', default=0.4, type=float, help='nms_thresh
 parser.add_argument('--keep_top_k', default=750, type=int, help='keep_top_k')
 parser.add_argument('-s', '--save_image', action="store_true", default=True, help='show detection results')
 parser.add_argument('--vis_thres', default=0.6, type=float, help='visualization_threshold')
+# creating object instance for the argparse class
 args = parser.parse_args()
 
 
-
+# check pre-trained graph model for inference
 def check_keys(model, pretrained_state_dict):
+    # set pre-defined training graph weights
     ckpt_keys = set(pretrained_state_dict.keys())
     model_keys = set(model.state_dict().keys())
     used_pretrained_keys = model_keys & ckpt_keys
@@ -50,7 +54,9 @@ def remove_prefix(state_dict, prefix):
 
 
 def load_model(model, pretrained_path, load_to_cpu):
+    # loading the face dection trained model from the path mentioned. Model defined the type of model which has to be loaded
     #print('Loading pretrained model from {}'.format(pretrained_path))
+    # based ont the flag passed, load the model either to CPU or GPU
     if load_to_cpu:
         pretrained_dict = torch.load(pretrained_path, map_location=lambda storage, loc: storage)
     else:
@@ -62,12 +68,15 @@ def load_model(model, pretrained_path, load_to_cpu):
         pretrained_dict = remove_prefix(pretrained_dict, 'module.')
     check_keys(model, pretrained_dict)
     model.load_state_dict(pretrained_dict, strict=False)
+    # retunr the loaded model
     return model
 
 ########################################################################
 
+# set torcch gradiient
 torch.set_grad_enabled(False)
 cfg = None
+# either load moblnet odel or resnet model
 if args.network == "mobile0.25":
     cfg = cfg_mnet
 elif args.network == "resnet50":
@@ -78,6 +87,7 @@ net = load_model(net, args.trained_model, args.cpu)
 net.eval()
 print('Finished loading model!')
 #print(net)
+# set CUDA usage to true
 cudnn.benchmark = True
 device = torch.device("cpu" if args.cpu else "cuda")
 net = net.to(device)
@@ -86,16 +96,21 @@ resize = 1
 ##########################################################################
 
 def attentiveness_calculation(eyes, nose, mouth):
-    #print("hi")
+    # Function to claculate the pose of input face
     pose_sensitivity = 0.05
+    # calculate the slope inbetween the eyes
     temp_slope = ((eyes[1][1]-eyes[0][1])/(eyes[1][0]-eyes[0][0]))
+    # find the median between the eyes
     mid_eyes = int((eyes[0][0] + eyes[1][0])/2)
+    # calculate pose angle
     face_angle = math.degrees(math.atan(temp_slope))
+    # check if the face is attentive or not
     if (int(face_angle) >40) or (int(face_angle) < -40) or (nose[0] < min(eyes[0][0], eyes[1][0])) or (nose[0] > max(eyes[0][0], eyes[1][0])):
         #print("NOT Attentive !!!")
         return 1
     else:
         #print(eyes[1][0] - eyes[0][0])
+        # calculate the distance between eyes
         if ((eyes[1][0] - eyes[0][0]))<63 and ((eyes[1][0] - eyes[0][0]))>40:
             pose_sensitivity = 0.022
         if (eyes[1][0] - eyes[0][0]) > 93:
@@ -103,6 +118,7 @@ def attentiveness_calculation(eyes, nose, mouth):
         if ((eyes[1][0] - eyes[0][0]))<=95 and ((eyes[1][0] - eyes[0][0]))>=56:
             pose_sensitivity = 0.05
         #print(int(nose[0]), mid_eyes, int((1 + pose_sensitivity) * mid_eyes), int((1 - pose_sensitivity) * mid_eyes))
+        # calculaet the loaction of nose in the input face
         if (int(nose[0]) > int((1 + pose_sensitivity) * mid_eyes)) or (int(nose[0]) < int((1 - pose_sensitivity) * mid_eyes)):
             #print("CHECK for ATTENTION !!!!")
             return 1
@@ -111,40 +127,48 @@ def attentiveness_calculation(eyes, nose, mouth):
     
 
 def call_face_detection(input_raw_image):
+    # core function for face detection
     img_raw = input_raw_image
     #image_path = "test.jpg"
     #img_raw = cv2.imread(image_path, cv2.IMREAD_COLOR)
-
+    # type case the image to FP32
     img = np.float32(img_raw)
-
+    # set the height and width of the image
     im_height, im_width, _ = img.shape
+    # scale the image tensor
     scale = torch.Tensor([img.shape[1], img.shape[0], img.shape[1], img.shape[0]])
     img -= (104, 117, 123)
     img = img.transpose(2, 0, 1)
     img = torch.from_numpy(img).unsqueeze(0)
+    # pass the image to CPU or GPU device
     img = img.to(device)
     scale = scale.to(device)
-
+    # tic the timer for inference time calculation
     #tic = time.time()
     loc, conf, landms = net(img)  # forward pass
     #print('net forward time: {:.4f}'.format(time.time() - tic))
-
+    # crate an object of the priorbox class for bounding box detection and refinement
     priorbox = PriorBox(cfg, image_size=(im_height, im_width))
     priors = priorbox.forward()
     priors = priors.to(device)
     prior_data = priors.data
+    # getting bounding box data
     boxes = decode(loc.data.squeeze(0), prior_data, cfg['variance'])
+    # scaling and resizing the bounding boxes
     boxes = boxes * scale / resize
     boxes = boxes.cpu().numpy()
+    # calculating the scores fo the bounding box classes
     scores = conf.squeeze(0).data.cpu().numpy()[:, 1]
     landms = decode_landm(landms.data.squeeze(0), prior_data, cfg['variance'])
+    # calculate the labels and scales for each bounding box for face detection
     scale1 = torch.Tensor([img.shape[3], img.shape[2], img.shape[3], img.shape[2],
                            img.shape[3], img.shape[2], img.shape[3], img.shape[2],
                            img.shape[3], img.shape[2]])
     scale1 = scale1.to(device)
+    # generating landmarks of faces
     landms = landms * scale1 / resize
     landms = landms.cpu().numpy()
-
+   
     # ignore low scores
     inds = np.where(scores > args.confidence_threshold)[0]
     boxes = boxes[inds]
@@ -177,6 +201,7 @@ def call_face_detection(input_raw_image):
         return img_raw, -1
     else:
         tmp_face_count = 0
+        # localize faces in the image
         for b in dets:
             if b[4] < args.vis_thres:
                 if tmp_face_count >= len(dets):
@@ -199,6 +224,8 @@ def call_face_detection(input_raw_image):
             #cv2.circle(img_raw, (b[9], b[10]), 1, (255, 0, 255), 4)
             #cv2.circle(img_raw, (b[11], b[12]), 1, (0, 255, 0), 4)
             #cv2.circle(img_raw, (b[13], b[14]), 1, (255, 0, 0), 4)
+            
+            # calculate the attentiveness of the input face and add label to the face.
             if (attentiveness_calculation([[b[5], b[6]],[b[7], b[8]]], [b[9], b[10]], [[b[11], b[12]],[b[13], b[14]]])):
                 img_raw = cv2.putText(img_raw, "NOT ATTENTIVE !!!", (cx, cy), cv2.FONT_HERSHEY_DUPLEX, 0.5, (255, 255, 255))
                 return img_raw, 1
