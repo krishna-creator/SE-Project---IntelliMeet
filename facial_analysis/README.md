@@ -1,86 +1,129 @@
-# RetinaFace Face Detector
+# RetinaFace in PyTorch
 
-## Introduction
+A [PyTorch](https://pytorch.org/) implementation of [RetinaFace: Single-stage Dense Face Localisation in the Wild](https://arxiv.org/abs/1905.00641). Model size only 1.7M, when Retinaface use mobilenet0.25 as backbone net. We also provide resnet50 as backbone net to get better result. The official code in Mxnet can be found [here](https://github.com/deepinsight/insightface/tree/master/RetinaFace).
 
-RetinaFace is a practical single-stage [SOTA](http://shuoyang1213.me/WIDERFACE/WiderFace_Results.html) face detector which is initially introduced in [arXiv technical report](https://arxiv.org/abs/1905.00641) and then accepted by [CVPR 2020](https://openaccess.thecvf.com/content_CVPR_2020/html/Deng_RetinaFace_Single-Shot_Multi-Level_Face_Localisation_in_the_Wild_CVPR_2020_paper.html).
+## Mobile or Edge device deploy
+We also provide a set of Face Detector for edge device in [here](https://github.com/biubug6/Face-Detector-1MB-with-landmark) from python training to C++ inference.
 
-![demoimg1](https://insightface.ai/assets/img/github/11513D05.jpg)
+## WiderFace Val Performance in single scale When using Resnet50 as backbone net.
+| Style | easy | medium | hard |
+|:-|:-:|:-:|:-:|
+| Pytorch (same parameter with Mxnet) | 94.82 % | 93.84% | 89.60% |
+| Pytorch (original image scale) | 95.48% | 94.04% | 84.43% |
+| Mxnet | 94.86% | 93.87% | 88.33% |
+| Mxnet(original image scale) | 94.97% | 93.89% | 82.27% |
 
-![demoimg2](https://insightface.ai/assets/img/github/widerfacevaltest.png)
+## WiderFace Val Performance in single scale When using Mobilenet0.25 as backbone net.
+| Style | easy | medium | hard |
+|:-|:-:|:-:|:-:|
+| Pytorch (same parameter with Mxnet) | 88.67% | 87.09% | 80.99% |
+| Pytorch (original image scale) | 90.70% | 88.16% | 73.82% |
+| Mxnet | 88.72% | 86.97% | 79.19% |
+| Mxnet(original image scale) | 89.58% | 87.11% | 69.12% |
+<p align="center"><img src="curve/Widerface.jpg" width="640"\></p>
 
-## Data
+## FDDB Performance.
+| FDDB(pytorch) | performance |
+|:-|:-:|
+| Mobilenet0.25 | 98.64% |
+| Resnet50 | 99.22% |
+<p align="center"><img src="curve/FDDB.png" width="640"\></p>
 
-1. Download our annotations (face bounding boxes & five facial landmarks) from [baidu cloud](https://pan.baidu.com/s/1Laby0EctfuJGgGMgRRgykA) or [gdrive](https://drive.google.com/file/d/1BbXxIiY-F74SumCNG6iwmJJ5K3heoemT/view?usp=sharing)
+### Contents
+- [Installation](#installation)
+- [Training](#training)
+- [Evaluation](#evaluation)
+- [TensorRT](#tensorrt)
+- [References](#references)
 
-2. Download the [WIDERFACE](http://shuoyang1213.me/WIDERFACE/WiderFace_Results.html) dataset.
+## Installation
+##### Clone and install
+1. git clone https://github.com/biubug6/Pytorch_Retinaface.git
 
-3. Organise the dataset directory under ``insightface/RetinaFace/`` as follows:
+2. Pytorch version 1.1.0+ and torchvision 0.3.0+ are needed.
+
+3. Codes are based on Python 3
+
+##### Data
+1. Download the [WIDERFACE](http://shuoyang1213.me/WIDERFACE/WiderFace_Results.html) dataset.
+
+2. Download annotations (face bounding boxes & five facial landmarks) from [baidu cloud](https://pan.baidu.com/s/1Laby0EctfuJGgGMgRRgykA) or [dropbox](https://www.dropbox.com/s/7j70r3eeepe4r2g/retinaface_gt_v1.1.zip?dl=0)
+
+3. Organise the dataset directory as follows:
 
 ```Shell
-  data/retinaface/
+  ./data/widerface/
     train/
       images/
       label.txt
     val/
       images/
-      label.txt
-    test/
-      images/
-      label.txt
+      wider_val.txt
 ```
+ps: wider_val.txt only include val file names but not label information.
 
-## Install
+##### Data1
+We also provide the organized dataset we used as in the above directory structure.
 
-1. Install MXNet with GPU support.
-2. Install Deformable Convolution V2 operator from [Deformable-ConvNets](https://github.com/msracver/Deformable-ConvNets) if you use the DCN based backbone.
-3. Type ``make`` to build cxx tools.
+Link: from [google cloud](https://drive.google.com/open?id=11UGV3nbVv1x9IC--_tK3Uxf7hA6rlbsS) or [baidu cloud](https://pan.baidu.com/s/1jIp9t30oYivrAvrgUgIoLQ) Password: ruck
 
 ## Training
+We provide restnet50 and mobilenet0.25 as backbone network to train model.
+We trained Mobilenet0.25 on imagenet dataset and get 46.58%  in top 1. If you do not wish to train the model, we also provide trained model. Pretrain model  and trained model are put in [google cloud](https://drive.google.com/open?id=1oZRSG0ZegbVkVwUd8wUIQx8W7yfZ_ki1) and [baidu cloud](https://pan.baidu.com/s/12h97Fy1RYuqMMIV-RpzdPg) Password: fstq . The model could be put as follows:
+```Shell
+  ./weights/
+      mobilenet0.25_Final.pth
+      mobilenetV1X0.25_pretrain.tar
+      Resnet50_Final.pth
+```
+1. Before training, you can check network configuration (e.g. batch_size, min_sizes and steps etc..) in ``data/config.py and train.py``.
 
-Please check ``train.py`` for training.
+2. Train the model using WIDER FACE:
+  ```Shell
+  CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py --network resnet50 or
+  CUDA_VISIBLE_DEVICES=0 python train.py --network mobile0.25
+  ```
 
-1. Copy ``rcnn/sample_config.py`` to ``rcnn/config.py``
-2. Download ImageNet pretrained models and put them into ``model/``(these models are not for detection testing/inferencing but training and parameters initialization). 
 
-    ImageNet ResNet50 ([baidu cloud](https://pan.baidu.com/s/1WAkU9ZA_j-OmzO-sdk9whA) and [googledrive](https://drive.google.com/file/d/1ibQOCG4eJyTrlKAJdnioQ3tyGlnbSHjy/view?usp=sharing)). 
+## Evaluation
+### Evaluation widerface val
+1. Generate txt file
+```Shell
+python test_widerface.py --trained_model weight_file --network mobile0.25 or resnet50
+```
+2. Evaluate txt results. Demo come from [Here](https://github.com/wondervictor/WiderFace-Evaluation)
+```Shell
+cd ./widerface_evaluate
+python setup.py build_ext --inplace
+python evaluation.py
+```
+3. You can also use widerface official Matlab evaluate demo in [Here](http://mmlab.ie.cuhk.edu.hk/projects/WIDERFace/WiderFace_Results.html)
+### Evaluation FDDB
 
-    ImageNet ResNet152 ([baidu cloud](https://pan.baidu.com/s/1nzQ6CzmdKFzg8bM8ChZFQg) and [googledrive](https://drive.google.com/file/d/1FEjeiIB4u-XBYdASgkyx78pFybrlKUA4/view?usp=sharing)).
-
-3. Start training with ``CUDA_VISIBLE_DEVICES='0,1,2,3' python -u train.py --prefix ./model/retina --network resnet``.  
-Before training, you can check the ``resnet`` network configuration (e.g. pretrained model path, anchor setting and learning rate policy etc..) in ``rcnn/config.py``.
-4. We have two predefined network settings named ``resnet``(for medium and large models) and ``mnet``(for lightweight models).
-
-## Testing
-
-Please check ``test.py`` for testing.
-
-## RetinaFace Pretrained Models
-
-Pretrained Model: RetinaFace-R50 ([baidu cloud](https://pan.baidu.com/s/1C6nKq122gJxRhb37vK0_LQ) or [googledrive](https://drive.google.com/file/d/1_DKgGxQWqlTqe78pw0KavId9BIMNUWfu/view?usp=sharing)) is a medium size model with ResNet50 backbone.
-It can output face bounding boxes and five facial landmarks in a single forward pass.
-
-WiderFace validation mAP: Easy 96.5, Medium 95.6, Hard 90.4. 
-
-To avoid the confliction with the WiderFace Challenge (ICCV 2019), we postpone the release time of our best model.
-
-## Third-party
-
-[yangfly](https://github.com/yangfly): RetinaFace-MobileNet0.25 ([baidu cloud](https://pan.baidu.com/s/1P1ypO7VYUbNAezdvLm2m9w):nzof).
-WiderFace validation mAP: Hard 82.5. (model size: 1.68Mb) 
-
-[clancylian](https://github.com/clancylian/retinaface): C++ version
-
-RetinaFace in [modelscope](https://modelscope.cn/models/damo/cv_resnet50_face-detection_retinaface/summary)
-
-## References
-
-```  
-@inproceedings{Deng2020CVPR,
-title = {RetinaFace: Single-Shot Multi-Level Face Localisation in the Wild},
-author = {Deng, Jiankang and Guo, Jia and Ververas, Evangelos and Kotsia, Irene and Zafeiriou, Stefanos},
-booktitle = {CVPR},
-year = {2020}
-}
+1. Download the images [FDDB](https://drive.google.com/open?id=17t4WULUDgZgiSy5kpCax4aooyPaz3GQH) to:
+```Shell
+./data/FDDB/images/
 ```
 
+2. Evaluate the trained model using:
+```Shell
+python test_fddb.py --trained_model weight_file --network mobile0.25 or resnet50
+```
 
+3. Download [eval_tool](https://bitbucket.org/marcopede/face-eval) to evaluate the performance.
+
+<p align="center"><img src="curve/1.jpg" width="640"\></p>
+
+## TensorRT
+-[TensorRT](https://github.com/wang-xinyu/tensorrtx/tree/master/retinaface)
+
+## References
+- [FaceBoxes](https://github.com/zisianw/FaceBoxes.PyTorch)
+- [Retinaface (mxnet)](https://github.com/deepinsight/insightface/tree/master/RetinaFace)
+```
+@inproceedings{deng2019retinaface,
+title={RetinaFace: Single-stage Dense Face Localisation in the Wild},
+author={Deng, Jiankang and Guo, Jia and Yuxiang, Zhou and Jinke Yu and Irene Kotsia and Zafeiriou, Stefanos},
+booktitle={arxiv},
+year={2019}
+```
